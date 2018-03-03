@@ -1,0 +1,6 @@
+{[Food][Frozen][Lachs][13.7.2019]}
+{[Food][Normal][Nuddeln][12.3.2019]}
+{[Bathroom][Normal][Seife][28.12.2019]}
+{[Cleaning][Normal][Schwam][20.12.2019]}
+{[Food][Cooled][Brattwurst][21.4.2018]}
+{[Cleaning][Normal][Allesreiniger][29.4.2027]}
