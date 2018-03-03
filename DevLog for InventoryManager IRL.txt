@@ -1,0 +1,68 @@
+New Program:
+Ideas:
+-Inventory Management Program(IRL)
+	-Includes:
+	Classes for:
+		Food Items
+		Bathroom Items
+		Cleaning Items
+		
+	
+	Expected lasting time
+	
+	
+	Food Items:
+		
+		
+		
+		
+Changelog 1.3.2018
+- Implemented Enumerator for FoodItems STORAGETYPES which includes Frozen, Cooled and Normal
+- Implemented Class Item
+- Implemented Class Date
+- Implemented first Iteration of main for questioning user what he wants
+- Implemented first Iteration of addItem and subtractItem
+
+
+To do:
+- Test everything... yay
+- Implement display function
+- Implement write to file function
+- Implement sorting function for all item types
+- Make sure, that Items will be deleted and saved as intended, before starting to catalog
+- Write a Test maybe?
+- Tag or Class System? Tag!
+- Implement standard Items for easier adding of Items
+- Implement standard Items for easier subtraction of Items
+
+---------------------------------------------------------------------------------------------------
+
+Changelog 2.3.2018
+- Implemented writeNewItem function
+- Implemented deleteExisitngItem function
+- Implemented all subtract and add functions
+- Implemented compile function
+- Implemented extract function
+- Implemented multiple versions of display function for custom searches
+- corrected errors in class date and class item, they are working perfectly now :D
+- conducted first tests, base functions are now implemented and functional
+- base functions consist of: 
+	- writing to file
+	- searching in file
+	- displaying file content
+	- deleting form file
+	- filter entry's and display results in a list
+
+To do:
+- Finish diplay functions and implement more
+- Search for data should cover timespan rather then one date only
+- Naming categories? maybe for easier use
+- some sort of prompt function to decrees length of main
+- Properly implement display function, no English tag names and spacing!
+- test with more items
+- increase ease of use
+- look into csv maybe?
+- when deleting an item, give user the choice to have all item display
+- when deleting an item, show user a list with dates, so that can select one, and wont have to type the date himself
+
+
