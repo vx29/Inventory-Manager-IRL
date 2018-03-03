@@ -12,6 +12,7 @@ public:
 	void setYear(int newYear);
 	void setDate(Date newDate);
 	void setDate(string newDate);
+	void addMonth(int amaout);
 	string copyStringPart(int start, int end, string mainString);
 	Date getDate();
 	string getDateAsString();
@@ -20,6 +21,9 @@ public:
 	int getYear();
 	bool operator==(Date tempDate);
 	bool operator!=(Date tempDate);
+	bool operator<(Date tempDate);
+	bool operator>(Date tempDate);
+	Date operator=(Date tempDate);
 private:
 	int day;
 	int month;

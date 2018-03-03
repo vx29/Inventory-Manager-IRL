@@ -65,4 +65,31 @@ To do:
 - when deleting an item, give user the choice to have all item display
 - when deleting an item, show user a list with dates, so that can select one, and wont have to type the date himself
 
+---------------------------------------------------------------------------------------------------
 
+Changelog 3.3.2018
+- Implemented dateWithinTimespann fuction 
+- Implemented one display fuction, that does everything
+- Added =,==,!=,<,> to Calss Date
+- Added new dateAsString to Date syntax, which allows day, month and year to be 0 for searches that only look for a certain year
+- Added new "date-snytax" which allows inputs like ..2019 or 2.. or .2. etc. 
+- Implemented time spann funtionality 
+- Implemented addMonth to Class Date, which allows for in- and decressing of the month, and ajust's day and year if necessary
+- Implemented geter for day, month and year in integer format
+- Reworked compile function to work with new display function, timespann fuctionality and new date-syntax
+
+To do:
+- Construct a quota system, which allows the setting of quotas of certain items
+	- Should include a way to detect if quotas are met
+	- User can accses a list were all items bellow the quota are displayed, called compileShoppingList
+	- Should include a way to ajust quotas if need be
+	- colour?
+	- diagramm to increase visibility(like ||||||____)
+- Construct a function that checks all items with current date and displays items that are about to spoil
+	- musst have a way to set the spoilWarningTime
+	- different times for different item?
+- Implement a way to easilyly input a large nummber of items
+	- List of commonly bought items?
+	- create list of entrys to add befor adding them to list?
+- A way to sort the list by date!
+- A way to add an item in between other items, probably sorted by date	

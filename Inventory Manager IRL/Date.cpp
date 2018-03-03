@@ -27,36 +27,47 @@ void Date::setYear(int newYear) {
 }
 void Date::setDate(Date newDate) {
 	//for base values
-	if (newDate.day > 0 && newDate.month > 0 && newDate.month < 13 && newDate.year> 2017) {
+	// 0 values enable timespann search!
+	if (newDate.getDay() > 0 && newDate.getMonth() > 0 && newDate.getMonth() < 13 && newDate.getYear()> 2017 ) {
 		//for months with 31 days
-		if (newDate.day < 32 && newDate.month % 2 == 1) {
-			setDay(newDate.day);
-			setMonth(newDate.month);
-			setYear(newDate.year);
+		if (newDate.getDay() < 32 && newDate.getMonth() % 2 == 1) {
+			setDay(newDate.getDay());
+			setMonth(newDate.getMonth());
+			setYear(newDate.getYear());
 		}
 		//for months with 30 days
-		else if (newDate.day < 31 && newDate.month % 2 == 0 && newDate.month != 2) {
-			setDay(newDate.day);
-			setMonth(newDate.month);
-			setYear(newDate.year);
+		else if (newDate.getDay() < 31 && newDate.getMonth() % 2 == 0 && newDate.getMonth() != 2) {
+			setDay(newDate.getDay());
+			setMonth(newDate.getMonth());
+			setYear(newDate.getYear());
 		}
 		//for februray
-		else if (newDate.day < 29 && newDate.month == 2 && newDate.year % 4 != 0) {
-			setDay(newDate.day);
-			setMonth(newDate.month);
-			setYear(newDate.year);
+		else if (newDate.getDay() < 29 && newDate.getMonth() == 2 && newDate.getYear() % 4 != 0) {
+			setDay(newDate.getDay());
+			setMonth(newDate.getMonth());
+			setYear(newDate.getYear());
 		}
 		//for leapyears
-		else if (newDate.day < 30 && newDate.month == 2 && newDate.year % 4 == 0) {
-			setDay(newDate.day);
-			setMonth(newDate.month);
-			setYear(newDate.year);
+		else if (newDate.getDay() < 30 && newDate.getMonth() == 2 && newDate.getYear() % 4 == 0) {
+			setDay(newDate.getDay());
+			setMonth(newDate.getMonth());
+			setYear(newDate.getYear());
 		}
 		else {
 			setDay(01);
 			setMonth(01);
 			setYear(2000);
 		}
+	}
+	else if (newDate.getDay()== 0 && newDate.getMonth() > -1 && newDate.getMonth() < 13 && newDate.getYear() == 0 || newDate.getYear() > 2017) {
+		setDay(newDate.getDay());
+		setMonth(newDate.getMonth());
+		setYear(newDate.getYear());
+	}
+	else if (newDate.getMonth() == 0 && newDate.getDay() > -1 && newDate.getDay() < 32 && newDate.getYear() == 0 || newDate.getYear() > 2017) {
+		setDay(newDate.getDay());
+		setMonth(newDate.getMonth());
+		setYear(newDate.getYear());
 	}
 	else {
 		setDay(01);
@@ -75,18 +86,36 @@ void Date::setDate(string newDate) {
 	int p = 0;
 	for (int i = 0; i < newDate.size();i++) {
 		//filter for day
-		if ((newDate[i] == '.')&& stringDay == "empty") {
-			stringDay = copyStringPart(p, i, newDate);
+		if ((newDate[i] == '.') && stringDay == "empty") {
+			//for ..'year' syntax
+			if (i == 0) {
+				stringDay = "0";
+			}
+			else {
+				stringDay = copyStringPart(p, i, newDate);
+			}
 			p = i;
 		}
 		//filter for month
-		else if ((newDate[i] == '.')&& stringMonth == "empty") {
-			stringMonth = copyStringPart(p+1, i, newDate);
+		else if ((newDate[i] == '.') && stringMonth == "empty" && stringDay != "empty") {
+			//for ..'year' syntax
+			if (newDate[i - 1] == '.') {
+				stringMonth = "0";
+			}
+			else {
+				stringMonth = copyStringPart(p + 1, i, newDate);
+			}
 			p = i;
 		}
 		//filter for year
-		else if (i+1==newDate.size()) {
-			stringYear = copyStringPart(p+1, i+1, newDate);
+		if (i+1==newDate.size()) {
+			//for 'day'.. syntax
+			if (newDate[i] == '.') {
+				stringYear = "0";
+			}
+			else {
+				stringYear = copyStringPart(p + 1, i + 1, newDate);
+			}
 		}
 	}
 	//Convert to string to integer
@@ -106,6 +135,47 @@ void Date::setDate(string newDate) {
 
 	//check if values are corect and set them if so
 	setDate(tempDate);
+}
+void Date::addMonth(int amaount) {
+	if (amaount > 12 || amaount < -12 || month == 0)
+		return;
+	else if (amaount < 0) {
+		if (month + amaount > 0) {
+			month += amaount;
+		}
+		else {
+			month = (month + amaount) + 12;
+			if (year != 0) {
+				year -= 1;
+			}
+		}
+	}
+	else if (amaount > 0) {
+		if (month + amaount < 13) {
+			month += amaount;
+		}
+		else {
+			month = (month + amaount) - 12;
+			if (year != 0) {
+				year += 1;
+			}
+		}
+	}
+	if (day > 28 && month == 2) {
+		day == 28;
+	}
+	if (day == 31 && month % 2 == 0) {
+		day = 30;
+	}
+	if (year != 0) {
+		
+		if (day > 28 && month == 2 && year % 4 != 0) {
+			day == 28;
+		}
+		if (day > 29 && month == 2 && year % 4 == 0) {
+			day == 29;
+		}
+	}
 }
 string Date::copyStringPart( int start, int end, string mainString) {
 	string result;
@@ -142,14 +212,55 @@ int Date::getYear() {
 	return year;
 }
 bool Date::operator==(Date tempDate) {
-	if (day == tempDate.getDay() && month == tempDate.getMonth() && year == tempDate.getYear()) {
+	// 0 values enable timespann search
+	if ((day == tempDate.getDay() || day == 0 || tempDate.getDay()== 0) && 
+		(month == tempDate.getMonth() || month == 0 || tempDate.getMonth()==0) && 
+		(year == tempDate.getYear() || year == 0 || tempDate.getYear() == 0)) {
 		return true;
 	}
 	return false;
 }
 bool Date::operator!=(Date tempDate) {
-	if (day == tempDate.getDay() && month == tempDate.getMonth() && year == tempDate.getYear()) {
+	// 0 values enable timespann search
+	if ((day == tempDate.getDay() || day == 0 || tempDate.getDay() == 0) &&
+		(month == tempDate.getMonth() || month == 0 || tempDate.getMonth() == 0) &&
+		(year == tempDate.getYear() || year == 0 || tempDate.getYear() == 0)) {
 		return false;
 	}
 	return true;
+}
+bool Date::operator<(Date tempDate) {
+	if (year < tempDate.getYear()) {
+		return true;
+	}
+	if ((year == tempDate.getYear() || year == 0 || tempDate.getYear() == 0) && month < tempDate.getMonth()) {
+		return true;
+	}
+	if ((year == tempDate.getYear() || year == 0 || tempDate.getYear() == 0) && 
+		(month == tempDate.getMonth() || month == 0 || tempDate.getMonth() == 0) && 
+		(day < tempDate.getDay())) {
+		return true;
+	}
+	return false;
+}
+bool Date::operator>(Date tempDate) {
+	if (year > tempDate.getYear()) {
+		return true;
+	}
+	if ((year == tempDate.getYear() || year == 0 || tempDate.getYear() == 0) && month > tempDate.getMonth()) {
+		return true;
+	}
+	if ((year == tempDate.getYear() || year == 0 || tempDate.getYear() == 0) &&
+		(month == tempDate.getMonth() || month == 0 || tempDate.getMonth() == 0) &&
+		(day > tempDate.getDay())) {
+		return true;
+	}
+	return false;
+}
+Date Date::operator=(Date tempDate) {
+	Date newDate;
+	newDate.setDay(tempDate.getDay());
+	newDate.setMonth(tempDate.getMonth());
+	newDate.setYear(tempDate.getYear());
+	return newDate;
 }
